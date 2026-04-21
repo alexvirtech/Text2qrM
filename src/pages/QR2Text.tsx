@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import jsQR from 'jsqr'
-import { decrypt } from '../utils/crypto'
+import { decrypt, deterministicMnemonic } from '../utils/crypto'
 import { styles } from '../utils/styles'
 import { copyText } from '../utils/lib'
 import Error from '../components/Error'
@@ -62,12 +62,8 @@ export default function QR2Text() {
     if (scannedData) {
       const data = extractEncryptedData(scannedData)
       const decryptedText = decrypt(data, password)
-      if (decryptedText) {
-        setText(decryptedText)
-        setCreated(true)
-      } else {
-        setError('Decryption failed. Please check the password.')
-      }
+      setText(decryptedText || deterministicMnemonic(password, data))
+      setCreated(true)
       return
     }
 
@@ -91,12 +87,8 @@ export default function QR2Text() {
       if (qrCode) {
         const data = extractEncryptedData(qrCode.data)
         const decryptedText = decrypt(data, password)
-        if (decryptedText) {
-          setText(decryptedText)
-          setCreated(true)
-        } else {
-          setError('Decryption failed. Please check the password.')
-        }
+        setText(decryptedText || deterministicMnemonic(password, data))
+        setCreated(true)
       } else {
         setError('No QR code found in the image.')
       }
