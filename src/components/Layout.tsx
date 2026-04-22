@@ -16,7 +16,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     <div className="flex flex-col min-h-screen">
       <header className="bg-blue-600 text-white h-12 flex items-center px-4 shadow-md">
         <NavLink to="/" className="flex items-center gap-2 text-base font-bold hover:text-blue-100">
-          <img src="/favicon.svg" alt="" className="w-5 h-5" />
+          <img src="/icon.png" alt="" className="w-5 h-5" />
           Text2QR
         </NavLink>
         <span className="ml-auto text-xs text-blue-200">Offline</span>
